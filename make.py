@@ -12,6 +12,9 @@ def main():
         os.mkdir("build")
     print("Copying minorGems directory struture...")
     shutil.copytree("./minorGems","./build/minorGems")
+    
+def recursivecopy(fromfolder,tofolder,filter):
+    pass
 def include(file):
     try:
         cppHeader = CppHeaderParser.CppHeader(file)
