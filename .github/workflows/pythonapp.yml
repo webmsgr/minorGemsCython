@@ -28,3 +28,4 @@ jobs:
       run: |
         git submodule update --init
         python3 make.py
+        python3 setup.py build_ext --inplace
