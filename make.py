@@ -1,16 +1,16 @@
 
-import glob, os, sys
+import glob, os, sys, shutil
 
 import CppHeaderParser
 
-template = """cdef extern from '{}':
-    pass\n"""
-fil = open("minorGemsWrapper.pxd","w")
-for filename in glob.iglob('minorGems/**', recursive=True):
-    if os.path.isfile(filename) and filename.endswith(".h"): # filter dirs
-        fil.write(template.format(filename)) # print all files
-fil.close()
-
+def main():
+    print("Creating build dir...")
+    try:
+        os.mkdir("build")
+    except:
+        shutil.rmtree("build")
+        os.mkdir("build")
+    print("Copying minorGems directory struture...")
 def include(file):
     try:
         cppHeader = CppHeaderParser.CppHeader(file)
