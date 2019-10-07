@@ -26,6 +26,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Make
       run: |
+        git submodule update --init
         python3 make.py
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
