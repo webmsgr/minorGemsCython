@@ -19,5 +19,5 @@ def include(file):
     except CppHeaderParser.CppParseError as e:
         print(e)
         sys.exit(1)
-if __name__ = "__main__":
+if __name__ == "__main__":
     main()
