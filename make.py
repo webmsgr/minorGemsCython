@@ -1,5 +1,5 @@
 
-import glob, os
+import glob, os, sys
 
 import CppHeaderParser
 
