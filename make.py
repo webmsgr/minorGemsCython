@@ -1,6 +1,9 @@
 
 import glob, os
-
+template = """cdef from extern '{}':
+    pass\n"""
+fil = open("minorGems.pxd","w")
 for filename in glob.iglob('minorGems/**', recursive=True):
     if os.path.isfile(filename) and filename.endswith(".h"): # filter dirs
-        print(filename) # print all files
+        fil.write(template.format(filename)) # print all files
+fil.close()
