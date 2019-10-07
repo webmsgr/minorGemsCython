@@ -12,7 +12,7 @@ def main():
         os.mkdir("build")
     os.mkdir("build/minorGems/")
     print("Copying minorGems directory struture...")
-    shutil.copytree("./minorGems","./build/minorGems"
+    shutil.copytree("./minorGems","./build/minorGems")
 def include(file):
     try:
         cppHeader = CppHeaderParser.CppHeader(file)
