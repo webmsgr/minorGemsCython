@@ -1,6 +1,6 @@
 
 import glob, os
-template = """cdef from extern '{}':
+template = """cdef extern from '{}':
     pass\n"""
 fil = open("minorGems.pxd","w")
 for filename in glob.iglob('minorGems/**', recursive=True):
