@@ -74,6 +74,8 @@ def include(file,addit=False):
         out += ") except +\n"
     for cppclass in cppHeader.classes:
         out += "    ctypedef struct {}:\n".format(cppclass)
+        for prop in cppHeader.classes[cppclass]["properties"]["public"]:
+            out += "        {} {}".format(prop["type"],prop["name"]
         for function in cppHeader.classes[cppclass]["methods"]["public"]:
             out += "    "+functin(function)
             params = []
