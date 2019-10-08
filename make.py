@@ -26,6 +26,8 @@ def main():
             catch.append(inp)
         if (os.path.basename(inp) + ".cpp").lower() in map(str.lower,os.listdir(os.path.dirname(i))):
             addit = True
+        with open(inp+"_wrapper.pyx","w") as f:
+            pass
         with open(inp+"_wrapper.pxd","w") as f:
             print("creating {}_wrapper.pxd".format(inp))
             f.write(include(inp,addit))
@@ -34,10 +36,10 @@ def main():
         w.write('\n'.join(["cimport {}".format(x.split("build/")[1].replace("/",".").replace(".pxd","")) for x in glob.glob("build/minorGems/**/*.pxd",recursive=True)]))
     print("creating minorGems.pyx")
     with open("build/minorGems.pyx","w") as w:
-        w.write("cimport minorGems_wrapper as minorGems")
+        w.write("cimport minorGems_wrapper")
     print("creating setup.py")
     with open("build/setup.py","w") as w:
-        w.write("""from distutils.core import setup\nfrom Cython.Build import cythonize\nsetup(\n\n    ext_modules = cythonize("minorGems.pyx",language="c++")\n)""")
+        w.write("""import sys\nsys.path.append(\""""+os.path.abspath("./build/minorGems/")+"""\")\nfrom distutils.core import setup\nfrom distutils.extension import Extension\nfrom Cython.Build import cythonize\nsetup(\n\n    ext_modules = cythonize(Extension("minorGems",["""+",".join(["\""+x.split("./build/")[1]+"\"" for x in glob.glob("./build/minorGems/**/*.pyx")])+"""]),language="c++",include_path=["."])\n)""")
 
 funcwrappers = []
 def functin(function):
@@ -52,16 +54,16 @@ def include(file,addit=False):
         return ""
     out = ""
     for includ in cppHeader.includes:
-        if includ[0] = "<":
+        if includ[0] == "<":
             out += "cdef extern from '{}':\n    pass\n".format(includ)
         else:
-            out += "from {} cimport *".format(includ)         
+            out += "from {}\" cimport *\n".format(includ.split(".h")[0])
     if addit:
         out += "cdef extern from '{}.cpp':\n    pass\n".format(file)
     else:
         out += ""
     out += "cdef extern from '{}.h':\n".format(file)
-    
+
     print(cppHeader.includes)
     for function in cppHeader.functions:
 
@@ -80,7 +82,9 @@ def include(file,addit=False):
                 params.append("{}{}{}".format(param['type'] if param['type'] != "void" else "",("" if "*" in param['type'] else " "),param['name']))
             out += ",".join(params)
             out += ") except +\n"
-    if out == "cdef extern from '{}.h':\n".format(file):
+    if out == "":
+        return ""
+    if out.split("cdef extern from '{}.h':\n".format(file))[1].strip() == "":
         out += "    pass"
     return out
 if __name__ == "__main__":
