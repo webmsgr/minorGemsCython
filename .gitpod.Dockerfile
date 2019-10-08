@@ -2,15 +2,9 @@ FROM gitpod/workspace-full
 
 USER root
 
-# install llvm/clang from source
+# install llvm/clang
 RUN apt-get update \
-    && git clone https://github.com/llvm/llvm-project.git llvm \
-    && cd llvm \
-    && mkdir build && cd build \
-    && cmake -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" ../llvm \
-    && make \
-    && export PATH=$PATH:/llvm/llvm/build/bin \
-    && cd ../.. \
+    && apt-get install clang
 # Install custom tools, runtime, etc. using apt-get
 # For example, the command below would install "bastet" - a command line tetris clone:
 #
