@@ -2,9 +2,9 @@ FROM gitpod/workspace-full
 
 USER root
 
-# install llvm/clang
+# install
 RUN apt-get update \
-    && git clone https://github.com/llvm/llvm-project.git
+    && git clone https://github.com/llvm/llvm-project.git \
     && cd llvm-project \
     && mkdir build \
     && cd build \
