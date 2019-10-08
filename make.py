@@ -55,6 +55,7 @@ def include(file,addit=False):
     except CppHeaderParser.CppParseError as e:
         print("Error parsing {}.h".format(file))
         return ""
+    print(cppHeader.includes)
     for function in cppHeader.functions:
 
         out += functin(function)
