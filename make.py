@@ -37,7 +37,7 @@ def main():
         w.write("cimport minorGems_wrapper as minorGems")
     print("creating setup.py")
     with open("build/setup.py","w") as w:
-        w.write("""from distutils.core import setup\nfrom Cython.Build import cythonize\nsetup(\n\n    ext_modules = cythonize("minorGems.pyx",language="c++")\n)""")
+        w.write("""from distutils.core import setup\nfrom Cython.Build import cythonize\nsetup(\n\n    ext_modules = cythonize("minorGems.pyx",language="c++",include_dirs=["""+','.join([x for x in glob.glob("./build/minorGems/**",recursive=True) if os.path.isdir(x)])+"""])\n)""")
 
 funcwrappers = []
 def functin(function):
