@@ -4,7 +4,11 @@ USER root
 
 # install llvm/clang
 RUN apt-get update \
-    && apt-get install clang CastXML
+    && apt-get install clang
+
+RUN git clone https://github.com/CastXML/CastXML CastXML \
+    && cd CastXML \
+    && cmake .
 # For example, the command below would install "bastet" - a command line tetris clone:
 #
 # RUN apt-get update \
