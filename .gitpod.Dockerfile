@@ -3,9 +3,13 @@ FROM gitpod/workspace-full
 USER root
 
 RUN apt-get update \
-   && git clone git://github.com/gccxml/gccxml.git \
-   && cd gccxml \
-   && mkdir gccxml-build && cd gccxml-build && cmake .. && make && make install
+    && git clone https://github.com/llvm/llvm-project.git llvm \
+    && cd llvm \
+    && mkdir build && cd build \
+    && cmake -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" ../llvm \
+    && make \
+    && export PATH=$PATH:/llvm/llvm/build/bin \
+    && cd ../.. \
 # Install custom tools, runtime, etc. using apt-get
 # For example, the command below would install "bastet" - a command line tetris clone:
 #
