@@ -5,7 +5,7 @@ USER root
 RUN apt-get update \
    && git clone git://github.com/gccxml/gccxml.git \
    && cd gccxml \
-   && mkdir gccxml-build && cd gccxml-build && cmake ../gccxml && make && make install
+   && mkdir gccxml-build && cd gccxml-build && cmake .. && make && make install
 # Install custom tools, runtime, etc. using apt-get
 # For example, the command below would install "bastet" - a command line tetris clone:
 #
