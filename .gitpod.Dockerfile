@@ -4,7 +4,7 @@ USER root
 
 # install llvm/clang
 RUN apt-get update \
-    && apt-get install -y llvm-dev clang llvm libclang-dev libclang l\
+    && apt-get install -y llvm-dev clang llvm libclang-dev \
     && git clone https://github.com/CastXML/CastXML \
     && cd CastXML \
     && cmake . \
