@@ -75,7 +75,7 @@ def include(file,addit=False):
     for cppclass in cppHeader.classes:
         out += "    cdef cppclass {}:\n".format(cppclass)
         for prop in cppHeader.classes[cppclass]["properties"]["public"]:
-            out += "        {} {}".format(prop["type"],prop["name"])
+            out += "        {}{}{}\n".format(prop["type"].split("*")[0].strip().replace("struct",""),"* " if prop["type"][-1].strip() == "*" else " ",prop["name"])
         for function in cppHeader.classes[cppclass]["methods"]["public"]:
             out += "    "+functin(function)
             params = []
