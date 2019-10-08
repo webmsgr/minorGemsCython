@@ -45,16 +45,23 @@ def functin(function):
     out = "    {}{}{}{} (".format(function['returns'],("*" if function['returns_pointer'] else "")," " if function['returns'] != "" else "",function["name"])
     return out
 def include(file,addit=False):
-    if addit:
-        out = "cdef extern from '{}.cpp':\n    pass\n".format(file)
-    else:
-        out = ""
-    out += "cdef extern from '{}.h':\n".format(file)
     try:
         cppHeader = CppHeaderParser.CppHeader(file+".h")
     except CppHeaderParser.CppParseError as e:
         print("Error parsing {}.h".format(file))
         return ""
+    out = ""
+    for includ in cppHeader.includes:
+        if includ[0] = "<":
+            out += "cdef extern from '{}':\n    pass\n".format(includ)
+        else:
+            out += "from {} cimport *".format(includ)         
+    if addit:
+        out += "cdef extern from '{}.cpp':\n    pass\n".format(file)
+    else:
+        out += ""
+    out += "cdef extern from '{}.h':\n".format(file)
+    
     print(cppHeader.includes)
     for function in cppHeader.functions:
 
