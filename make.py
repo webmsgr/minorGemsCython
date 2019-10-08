@@ -73,7 +73,7 @@ def include(file,addit=False):
         out += ",".join(params)
         out += ") except +\n"
     for cppclass in cppHeader.classes:
-        out += "    ctypedef struct {}:\n".format(cppclass)
+        out += "    cdef cppclass {}:\n".format(cppclass)
         for prop in cppHeader.classes[cppclass]["properties"]["public"]:
             out += "        {} {}".format(prop["type"],prop["name"])
         for function in cppHeader.classes[cppclass]["methods"]["public"]:
@@ -83,6 +83,7 @@ def include(file,addit=False):
                 params.append("{}{}{}".format(param['type'] if param['type'] != "void" else "",("" if "*" in param['type'] else " "),param['name']))
             out += ",".join(params)
             out += ") except +\n"
+        out += "ctypedef {0} {0}".format(cppclass)
     if out == "":
         return ""
     if out.split("cdef extern from '{}.h':\n".format(file))[1].strip() == "":
