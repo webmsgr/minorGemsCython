@@ -4,8 +4,7 @@ USER root
 
 # install llvm/clang
 RUN apt-get update \
-    && apt-get install -y llvm-9-dev \
-    && bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" \
+    && apt-get install -y llvm-dev clang llvm \
     && git clone https://github.com/CastXML/CastXML CastXML \
     && cd CastXML \
     && cmake . -DLLVM_DIR="$(llvm-config --cmakedir)"  \ 
