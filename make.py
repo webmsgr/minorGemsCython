@@ -42,8 +42,8 @@ def main():
 funcwrappers = []
 def functin(function):
     function['returns'] = function['returns'] if function['returns'] != "void" else ""
-    return "    {}{}{}{} (".format(function['returns'],("*" if function['returns_pointer'] else "")," " if function['returns'] != "" else "",function["name"])
-    funcwrappers
+    out = "    {}{}{}{} (".format(function['returns'],("*" if function['returns_pointer'] else "")," " if function['returns'] != "" else "",function["name"])
+    return out
 def include(file,addit=False):
     if addit:
         out = "cdef extern from '{}.cpp':\n    pass\n".format(file)
