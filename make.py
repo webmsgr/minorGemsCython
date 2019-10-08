@@ -43,7 +43,6 @@ def main():
 
 funcwrappers = []
 def functin(function):
-    function['returns'] = function['returns'] if function['returns'] != "void" else ""
     out = "    {}{}{}{} (".format(function['returns'],("*" if function['returns_pointer'] else "")," " if function['returns'] != "" else "",function["name"])
     return out
 def include(file,addit=False):
