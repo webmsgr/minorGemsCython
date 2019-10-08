@@ -13,14 +13,14 @@ def main():
     print("Copying minorGems directory struture...")
     shutil.copytree("./minorGems","./build/minorGems")
     catch = []
-    for i in glob.iglob("./build/minorGems/**/*.h",recursive=True):
+    for i in glob.iglob("./build/minorGems/**/*.cpp",recursive=True):
         if "win32" in i or "linux" in i or "example" in i or "3d" in i:
             continue
         with open("{}/__init__.py".format(os.path.dirname(i)),"w"):
             pass
         inp = i.split(".h")[0]
-        print("wrapping {0}.h to {0}_wrapper.pxd".format(inp))
-        print("THIS DOES NOT WORK! WORK IN PROGRESS!")
+        print("converting {0}.cpp to {0}.xml".format(inp))
+        os.system("gccxml {0}.cpp -fxml={0}.xml".format(inp))
 
     print("creating minorGems_wrapper.pxd")
     with open("build/minorGems_wrapper.pxd","w") as w:
