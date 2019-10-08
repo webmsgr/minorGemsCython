@@ -7,7 +7,7 @@ RUN apt-get update \
     && apt-get install -y llvm clang llvm-dev \
     && git clone https://github.com/CastXML/CastXML CastXML \
     && cd CastXML \
-    && cmake . \ 
+    && cmake . -DLLVM_DIR="$(llvm-config --cmakedir)"  \ 
     && make \
     && make install \
     && apt-get clean && rm -rf /var/cache/apt/* && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
